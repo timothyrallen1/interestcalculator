@@ -1,0 +1,61 @@
+<p>myinput works! TA asdf</p>
+
+<div class="container">
+    <h3>Angular 9 FormArray Example</h3>
+    <form [formGroup] = "angForm" (ngSubmit)="onFormSubmit()">
+      <div formArrayName="cards">
+        <div *ngFor="let name of cards.controls; index as idx" class="form-group">
+          <input [formControlName]="idx" placeholder="Enter a Card" class="form-control">
+          <button type="button" (click)="addNameField()" class="btn btn-success" [ngClass] = "'pad'">Add More Cards</button>
+          <button (click)="deleteNameField(idx)" class="btn btn-danger">Delete</button>
+        </div>
+      </div> 
+      <div formArrayName="people">
+        <div *ngFor="let name of people.controls; index as idx" class="form-group">
+          <input [formControlName]="idx" placeholder="Enter a Name" class="form-control">
+          <button type="button" (click)="addPersonField()" class="btn btn-success" [ngClass] = "'pad'">Add More People</button>
+          <button (click)="deletePersonField(idx)" class="btn btn-danger">Delete</button>
+        </div>
+      </div> 
+      <div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+    </div>
+    
+  <form [formGroup]="personForm">
+  
+    <label>
+    Name:
+      <input type="text" formControlName="name">
+    </label>
+  
+    <label>
+        numberOfWallets:
+      <input type="text" formControlName="numberOfWallets">
+    </label>
+    <button (click)="addPerson(personForm)">Add Person</button>
+
+  </form>
+  
+  <div *ngFor="let person of persons"> 
+    <div *ngFor="let wallet of person.wallet let i = index"> 
+
+    <p>{{person.name }} </p>
+    <p>Wallet: {{ i+ 1}}</p>
+
+        <form [formGroup]="cardForm[i]">      
+        <label>
+            cardName:
+          <input type="text" formControlName="cardName">
+        </label>     
+        <label>
+            cardAmount:
+          <input type="text" formControlName="cardAmount">
+        </label>
+        <button (click)="saveCard(wallet, cardForm, person)">Save Card</button>
+        <button (click)="addCard(wallet)">Add Card</button>
+      </form>
+      </div>
+
+  </div>

@@ -1,0 +1,72 @@
+<div class="container">
+  
+  <h1>Interest Calculator</h1>
+  
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    
+    <p>
+      <label for="name">Person Name:</label>
+      <input type="text" id="name" name="name" formControlName="name" class="form-control">
+    </p>
+    
+    <!-- <table class="table table-bordered" formArrayName="cards">
+      <tr>
+        <th colspan="2">Add Multiple Cards:</th>
+        <th width="150px"><button type="button" (click)="addCard()" class="btn btn-primary">Add More</button></th>
+      </tr>
+      
+      <tr *ngFor="let cards of cards().controls; let i=index" [formGroupName]="i">
+        <td>
+            Name :
+            <input type="text" formControlName="name" class="form-control">
+        </td>
+        <td>
+            Amount :
+            <input type="text" formControlName="amount" class="form-control">
+        </td>
+        <td>
+            <button (click)="removeCard(i)" class="btn btn-danger">Remove</button>
+        </td>
+      </tr>
+    </table> -->
+    <h3>My Wallets</h3>
+    <div formArrayName="wallets">
+    <button type="button" (click)="addWallet()" class="btn btn-primary" style="float:right">Add Wallet</button>
+    <div *ngFor="let wallet of wallets().controls; let i=index" [formGroupName]="i">
+            
+           <label for="walletname">Wallet Name</label>
+           <input type="text" id="walletname" formControlName="walletname" class="form-control">            
+
+           <hr/>
+
+        <div formArrayName="cards">
+                <div *ngFor="let card of wallet.get('cards').controls; let j=index" [formGroupName]="j">
+                    <label for="cardname">Card Name {{j+1}}</label>
+                    <select class="form-control">
+                        <option>Choose Card</option>
+                        <option *ngFor="let cardType of cardTypeList">{{cardType}}</option>                     
+                    </select>       
+                    <label for="amount">Card Amount</label>
+                    <input type="text" id="amount" formControlName="amount" class="form-control">  
+                    <br/>
+                    <button (click)="removeCard(j)" class="btn btn-danger" style="float:right">Remove</button>
+                    <br/>
+                    <br/>
+                    <hr/>
+                    
+                </div>
+                
+                <button type="button" (click)="addCard(wallet['controls'].cards)" class="btn btn-primary" style="">Add Card </button>
+
+        </div>
+     </div>
+     </div>
+     <br/>
+     <br/>
+    <button type="submit" class="btn btn-primary btn-lg btn-block">Calculate</button>
+    
+  </form>
+    
+  <br/>
+  {{this.myForm.value | json}}
+</div>
